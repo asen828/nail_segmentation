@@ -80,6 +80,7 @@ import segmentation_models_pytorch as smp
 
 #         return out
 
+#引用模型
 def Nail_SegNet(encoder_name="resnet34", in_channels=3, classes=1):
 
     #定义Unet
@@ -90,7 +91,7 @@ def Nail_SegNet(encoder_name="resnet34", in_channels=3, classes=1):
         classes=classes,
     )
     
-    weight_dir = ".vscode\segmentation\\resource\pretrain_weight"
+    weight_dir = "resource\pretrain_weight"
     weight_name = "resnet34-333f7ec4.pth"
 
     local_weight_path = os.path.join(weight_dir, weight_name)
@@ -109,14 +110,6 @@ def Nail_SegNet(encoder_name="resnet34", in_channels=3, classes=1):
         print(f"[!] 警告：未找到本地权重文件 {local_weight_path}")
 
     return model
-
-
-
-def dice_loss(pred, target, smooth=1e-5):
-    pred = torch.sigmoid(pred)          # 将输出转为概率
-    intersection = (pred * target).sum()
-    union = pred.sum() + target.sum()
-    return 1 - (2. * intersection + smooth) / (union + smooth)
 
 def calculate_metrics(preds, masks, threshold=0.5):
     """

@@ -5,8 +5,8 @@ import torchvision
 import matplotlib.pyplot as plt
 from model import * 
 
-image_path = ".vscode\segmentation\\resource\\nail_3.jpg"
-model_path = ".vscode\segmentation\\resource\models\segnet_0.7719546698783288.pth"
+image_path = "resource\\nail_3.jpg"
+model_path = "resource\models\segnet_0.7719546698783288.pth"
 
 image = cv2.imread(image_path)
 image = cv2.resize(image,(256,256))

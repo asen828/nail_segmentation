@@ -6,7 +6,7 @@ from model import *
 from torch.utils.tensorboard import SummaryWriter
 
 
-root_dir = ".vscode\segmentation\\resource"  #数据集根路径
+root_dir = "resource"  #数据集根路径
 image_size = (256,256)      #图片缩放256*256
 train_rate = 0.8            #取数据集的80%，做训练
 batch_size = 8              #批大小
@@ -44,7 +44,6 @@ for epoch in range(train_epoch):
         labels = labels.to(device)
         
         output = model(images)
-        # loss = criterion(output,labels) + dice_loss(output,labels) * 2.0
         loss = criterion(output,labels)
 
         optimizer.zero_grad()
@@ -67,7 +66,6 @@ for epoch in range(train_epoch):
             
             output = model(images)
             # print(output)
-            # loss = criterion(output,labels) + dice_loss(output,labels) * 2.0
             loss = criterion(output,labels)
             total_test_loss += loss.item()
             
@@ -97,7 +95,7 @@ for epoch in range(train_epoch):
     #保存优秀的模型
     if(avg_iou > 0.7 and avg_iou > best_val_iou):
         best_val_iou = avg_iou
-        torch.save(model,f".vscode\segmentation\\resource\models\segnet_{avg_iou}.pth")
+        torch.save(model,f"resource\models\segnet_{avg_iou}.pth")
 draw_data_curve(history)        #保存曲线
 
 
